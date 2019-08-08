@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import Login from './pages/Login';
+import Routes from './routes';
 
 
 class App extends Component {
   render() {
     return (
-     <Login />
+     <Routes />
     );
   }
 }
