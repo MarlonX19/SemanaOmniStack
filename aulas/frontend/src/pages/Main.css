@@ -65,3 +65,8 @@
    transition: all 0.3s;
 }
 
+.main-container .empty {
+   margin-top: 200px;
+   font-weight: bold;
+}
+
