@@ -12,7 +12,6 @@ mongoose.connect('mongodb+srv://omnistack:omnistack@cluster0-atavq.mongodb.net/o
 server.use(cors());
 server.use(express.json());
 server.use(routes);
-
 server.listen(3333);
 
 
