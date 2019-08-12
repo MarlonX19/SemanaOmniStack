@@ -7,10 +7,11 @@ import api from '../services/api';
 import logo from '../assets/logo.svg';
 import like from '../assets/like.svg';
 import dislike from '../assets/dislike.svg';
+import itsamatch from '../assets/itsamatch.png';
 
 export default function Main({ match }) {
     const [users, setUsers] = useState([]);
-
+    const [matchDev, setMatchDev] = useState(null);
     useEffect(() => {
         async function loadUsers() {
             const response = await api.get('/dev', {
@@ -24,14 +25,14 @@ export default function Main({ match }) {
     }, [match.params.id]);
 
     useEffect(() => {
-        const socket = io('http://localhost:3333');
+        const socket = io('http://localhost:3333', {
+            query: { user: match.params.id }
+        });
 
-        setTimeout(() => {
-            socket.emit('hello', {
-                message: 'Hello world'
-            })
-        }, 3000);
-
+        socket.on('match', dev => {
+            console.log(dev);
+            setMatchDev(dev);
+        })
     }, [match.params.id]);
 
     async function handleLike(id) {
@@ -80,6 +81,18 @@ export default function Main({ match }) {
                         <h1>Ninguém está perto</h1>
                     </div>
                 )}
+
+                {
+                    matchDev && (
+                        <div className='match-container'>
+                            <img src={itsamatch} alt='match' />
+                            <img className='avatar' src={matchDev.avatar} alt='avatar' />
+                            <strong>{matchDev.name}</strong>
+                            <p>{matchDev.bio}</p>
+                            <button type="button" onClick={() => setMatchDev(null)} >Fechar</button>
+                        </div>
+                    )
+                }
         </div>
     )
 }
