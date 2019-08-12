@@ -80,13 +80,13 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         marginTop: 10,
         justifyContent: 'center',
-        alignSelf: 'center',
         paddingHorizontal: 15
     },
 
     text: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 16
+        fontSize: 16,
+        textAlign: 'center'
     }
 });
