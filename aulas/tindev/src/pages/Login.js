@@ -18,8 +18,9 @@ export default function Login({ navigation }) {
     }, []);
     
     async function handleLogin(){
+        console.log('hahah')
         const response = await api.post('/dev', { username: user })
-       console.log(response);
+       console.log('aasshahah');
 
        const { _id } = response.data;
 

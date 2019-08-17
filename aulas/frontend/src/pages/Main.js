@@ -23,9 +23,9 @@ export default function Main({ match }) {
         }
         loadUsers();
     }, [match.params.id]);
-
+    https://herokutindev.herokuapp.com
     useEffect(() => {
-        const socket = io('http://localhost:3333', {
+        const socket = io('http://herokutindev.herokuapp.com', {
             query: { user: match.params.id }
         });
 
