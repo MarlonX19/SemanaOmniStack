@@ -30,7 +30,7 @@ export default function Main({ navigation }) {
 
 
     useEffect(() => {
-        const socket = io('http://herokutindev.herokuapp.com', {
+        const socket = io('https://herokutindev.herokuapp.com/', {
             query: { user: id }
         });
 
