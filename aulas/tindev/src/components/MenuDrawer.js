@@ -6,10 +6,29 @@ const HEIGHT = Dimensions.get('window').height;
 
 import Like from '../assets/like.png';
 import Dislike from '../assets/dislike.png';
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 // create a component
 class MenuDrawer extends Component {
+    constructor(props){
+        super(props)
+
+        this.state = {
+            name: '',
+            avatar: '',
+            bio: '',
+        }
+    }
+
+    async componentDidMount() {
+        const name = await AsyncStorage.getItem('userName')
+        const avatar = await AsyncStorage.getItem('userAvatar')
+        const bio = await AsyncStorage.getItem('userBio')
+        const user = await AsyncStorage.getItem('userUser');
+        this.setState({ name, avatar, bio })
+    }
+
 
     navLinkToLikes(nav, text) {
         return (
@@ -46,8 +65,10 @@ class MenuDrawer extends Component {
         return (
             <View style={styles.container}>
                 <ScrollView style={{ flex: 1 }}>
-                    <View style={styles.topLinks}>
-                        <Text>Hello world</Text>
+                    <View style={styles.topInfo}>
+                        <Image style={styles.topImage} source={{ uri: this.state.avatar}} />
+                        <Text style={styles.topName}>{this.state.name}</Text>
+                        <Text style={styles.topBio}>{this.state.bio}</Text>
                     </View>
                     <View style={styles.bottomLinks}>
                         {this.navLinkToLikes('MyLikes', 'My Likes')}
@@ -70,9 +91,38 @@ const styles = StyleSheet.create({
         backgroundColor: '#C0C0C0',
     },
 
-    topLinks: {
-        height: 160,
-        backgroundColor: 'lightgrey'
+    topInfo: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 190,
+        backgroundColor: '#e6ffff'
+    },
+
+    topImage:{
+        height: 95,
+        width: 95,
+        borderRadius: 50,
+        borderWidth: 2,
+        borderColor: 'pink'
+    },
+
+    topName: {
+        fontSize: 16,
+        fontWeight: 'bold'
+    },
+
+    topUser: {
+        color: 'pink',
+        fontSize: 14,
+        fontWeight: '400'
+    },
+
+    topBio: {
+        fontSize: 12,
+        fontWeight: '200',
+        padding: 10,
+        color: '#999'
     },
 
     bottomLinks: {

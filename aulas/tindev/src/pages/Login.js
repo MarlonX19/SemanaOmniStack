@@ -9,26 +9,49 @@ import api from '../services/api';
 export default function Login({ navigation }) {
     const [user, setUser] = useState('');
 
-    useEffect(()=> {
-         AsyncStorage.getItem('user').then(user => {
-            if(user){
+    useEffect(() => {
+        AsyncStorage.getItem('user').then(user => {
+            if (user) {
                 navigation.navigate('Main', { user });
             }
         })
     }, []);
-    
-    async function handleLogin(){
-        console.log('hahah')
-        const response = await api.post('/dev', { username: user })
-       console.log('aasshahah');
 
-       const { _id } = response.data;
+  /*  async function handleLogin() {
+        console.log('teste')
+        console.log(user);
+        const response = await api.post('/dev', { username: 'marlonx19' })
+        console.log(response.data);
+
+        const { _id, name, avatar, bio, user } = response.data;
+        await AsyncStorage.setItem('user', _id);
+        await AsyncStorage.setItem('userName', name);
+        await AsyncStorage.setItem('userAvatar', avatar);
+        await AsyncStorage.setItem('userBio', bio)
+        await AsyncStorage.setItem('userUser', user)
+
+        navigation.navigate('SwitchNavs', { user: _id });
+
+    } */
+
+    async function handleLoginTest(){
+        console.log('hahah')
+        console.log(user);
+        const response = await api.post('/dev', { username: user })
+       console.log('here');
+
+       const { _id, name, avatar, bio } = response.data;
 
        await AsyncStorage.setItem('user', _id);
+       await AsyncStorage.setItem('userName', name);
+       await AsyncStorage.setItem('userAvatar', avatar);
+       await AsyncStorage.setItem('userBio', bio)
+
 
         navigation.navigate('SwitchNavs', { user: _id });
     }
 
+    console.log(user);
     return (
         <KeyboardAvoidingView
             behavior="padding"
@@ -47,7 +70,7 @@ export default function Login({ navigation }) {
                 onChangeText={setUser}
             />
 
-            <TouchableOpacity onPress={handleLogin} style={styles.button}>
+            <TouchableOpacity onPress={handleLoginTest} style={styles.button}>
                 <Text style={styles.text}>Enviar</Text>
             </TouchableOpacity>
         </KeyboardAvoidingView>

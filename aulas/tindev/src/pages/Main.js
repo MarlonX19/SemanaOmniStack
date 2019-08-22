@@ -17,6 +17,7 @@ export default function Main({ navigation }) {
     const [users, setUsers] = useState([]);
     const [matchDev, setMatchDev] = useState(false);
 
+
     useEffect(() => {
         async function loadUsers() {
             const response = await api.get('/dev', {
