@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { SafeAreaView, View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 import api from '../services/api';
+import MenuButton from '../components/MenuButton';
 
 import logo from '../assets/logo.png';
 import like from '../assets/like.png';
@@ -71,6 +72,9 @@ export default function Main({ navigation }) {
 
     return (
         <SafeAreaView style={styles.container}>
+            <View style={styles.MenuButton}>
+                <MenuButton navigation={navigation} />
+            </View>
             <TouchableOpacity
                 onPress={handleLogout}
             >
@@ -79,7 +83,7 @@ export default function Main({ navigation }) {
 
             <View style={styles.cardContainer}>
                 {users.length === 0 || matchDev
-                    ? <Text style={styles.empty}>Ninguém por perto!</Text>
+                    ? <Text style={styles.empty}>Ninguém por perto até agora!</Text>
                     :
                     (users.map((user, index) => (
                         <View key={user._id} style={[styles.card, { zIndex: users.length - index }]}>
@@ -146,8 +150,14 @@ const styles = StyleSheet.create({
         marginTop: 30
     },
 
-    cardContainer: {
+    MenuButton:{
         flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
+
+    cardContainer: {
+        flex: 5,
         justifyContent: 'center',
         alignSelf: 'stretch',
         maxHeight: 500,
